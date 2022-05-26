@@ -3,17 +3,17 @@ import React from 'react'
 import Container from 'components/Container'
 import Heading from 'components/Heading'
 
-import faq from './content'
 import * as S from './styles'
+import { SectionFaqProps } from 'types/api'
 
-const SectionFaq = () => (
+const SectionFaq = ({ questions, title }: SectionFaqProps) => (
   <S.Wrapper>
     <S.Content>
       <Container>
-        <Heading>FAQ</Heading>
+        <Heading>{title}</Heading>
 
         <S.Questions>
-          {faq.map(({ question, answer }, index) => (
+          {questions.map(({ question, answer }, index) => (
             <S.Question key={index}>
               <Heading lineBottom>{question}</Heading>
               <div dangerouslySetInnerHTML={{ __html: answer }} />
@@ -22,19 +22,19 @@ const SectionFaq = () => (
         </S.Questions>
 
         <S.ExtraQuestion>
-          <Heading lineBottom>Eu tenho outra dúvida!</Heading>
+          <Heading lineBottom>I have another question!</Heading>
           <p>
-            Sem problemas! Você pode acessar qualquer uma das{' '}
+            No problem! You can access any of{' '}
             <a
               href="https://willianjusten.com.br/about"
               target="_blank"
               rel="noreferrer"
             >
-              minhas redes sociais
+              my social networks
             </a>{' '}
-            ou entrar no{' '}
+            or get into the{' '}
             <a href="http://bit.ly/slack-will" target="_blank" rel="noreferrer">
-              slack do nosso curso.
+              slack of our course.
             </a>
           </p>
         </S.ExtraQuestion>

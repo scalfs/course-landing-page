@@ -16,33 +16,44 @@ import { GetStaticProps } from 'next'
 import React from 'react'
 import { LandingPageEntityResponse, LandingPageProps } from 'types/api'
 
-const Index = ({ logo }: LandingPageProps) => (
+const Index = ({
+  logo,
+  header,
+  sectionAboutProject,
+  sectionTech,
+  sectionConcepts,
+  sectionModules,
+  sectionAgenda,
+  pricingBox,
+  sectionAboutUs,
+  sectionReviews,
+  sectionFaq
+}: LandingPageProps) => (
   <>
-    <SectionHero logo={logo} />
-    <SectionAboutProject />
-    <SectionTech />
-    <SectionConcepts />
-    <SectionModules />
-    <SectionAgenda />
-    <PricingBox />
-    <SectionAboutUs />
-    <SectionReviews />
-    <SectionFaq />
+    <SectionHero logo={logo.data.attributes} header={header} />
+    <SectionAboutProject {...sectionAboutProject} />
+    <SectionTech {...sectionTech} />
+    <SectionConcepts {...sectionConcepts} />
+    <SectionModules {...sectionModules} />
+    <SectionAgenda {...sectionAgenda} />
+    <PricingBox {...pricingBox} />
+    <SectionAboutUs {...sectionAboutUs} />
+    <SectionReviews {...sectionReviews} />
+    <SectionFaq {...sectionFaq} />
     <Footer />
     <JsonSchema />
   </>
 )
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<LandingPageProps> = async () => {
   const { landingPage } = await client.request<LandingPageEntityResponse>(
     GET_LANDING_PAGE
   )
 
-  const logo = landingPage.data.attributes.logo
-  const { alternativeText, url } = logo.data.attributes
-
   return {
-    props: { logo: { alternativeText, url } }
+    props: {
+      ...landingPage.data.attributes
+    }
   }
 }
 
